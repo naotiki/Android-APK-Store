@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_item_category_1"
+                android:icon="@drawable/circledmenu"
+                android:title="アプリ"/>
+        <item
+                android:id="@+id/nav_item_category_2"
+                android:icon="@drawable/settings"
+                android:title="設定"/>
+    </group>
+
+    <item android:title="その他">
+        <menu>
+            <item
+                    android:id="@+id/nav_sub_item_1"
+                    android:icon="@drawable/update"
+                    android:title="Storeアプリの更新を確認" />
+            <item
+                    android:id="@+id/nav_sub_item_2"
+                    android:icon="@drawable/about"
+                    android:title="このアプリについて" />
+        </menu>
+    </item>
+</menu>

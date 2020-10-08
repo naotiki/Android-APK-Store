@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:card_view="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".app_fragment">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    card_view:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            card_view:srcCompat="@drawable/tuyopon_3d"/>
+
+                    <TextView
+                            android:text="TPS (ベータ,タイトル未定)"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="36sp"
+                            android:textColor="@color/colorText"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:textAlignment="textStart"
+                            android:textStyle="bold|italic"
+                            android:paddingLeft="10dp"
+                            card_view:autoSizeTextType="uniform"
+                            android:lines="1"/>
+
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <Button
+                                android:text="詳細"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/app1"
+                                android:background="@drawable/button_rounded_normal"
+                                android:textColor="@color/colorText"
+                                android:layout_weight="1"/>
+
+                        <Button
+                                android:text="インストール"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/install_btn1"
+                                android:background="@drawable/button_rounded_green"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorText"
+                                android:layout_weight="1"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            card_view:srcCompat="@drawable/siritori"/>
+
+                    <TextView
+                            android:text="しりとりAI (PWA)"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="36sp"
+                            android:textColor="@color/colorText"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:textAlignment="textStart"
+                            android:textStyle="bold|italic"
+                            android:paddingLeft="10dp"
+                            card_view:autoSizeTextType="uniform"
+                            android:lines="1"/>
+
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <Button
+                                android:text="開く"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/button4"
+                                android:background="@drawable/button_round_green_one"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorText"
+                                android:layout_weight="1"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

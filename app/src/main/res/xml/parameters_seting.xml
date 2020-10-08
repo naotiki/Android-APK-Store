@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/colorBackground"
+
+        >
+
+    <PreferenceCategory
+            android:title="設定"
+            >
+        <SwitchPreferenceCompat
+                android:key="notification"
+                android:title="通知"
+                android:summary="アプリのアップデートの情報などをお知らせします"
+                android:defaultValue="true"
+/>
+        <Preference
+                app:key="activity"
+        app:title="権限や通知の設定">
+
+    </Preference>
+    </PreferenceCategory>
+
+
+
+</androidx.preference.PreferenceScreen>

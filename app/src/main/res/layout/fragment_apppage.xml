@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".ApppageFragment"
+             >
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeupdate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="157dp"
+                    android:id="@+id/imageView2"
+                    app:srcCompat="@drawable/n_u_store"/>
+
+            <TextView
+                    android:text="AppTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:id="@+id/appTitle"
+                    android:textColor="@color/colorText"
+                    android:textAlignment="center"
+                    android:textSize="36sp"/>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:visibility="visible"
+                    android:animateLayoutChanges="true"
+                    android:id="@+id/progressLayout"><!--TODO アニメーションの確認-->
+
+                <ProgressBar
+                        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/progressBar"
+                        android:max="100"
+                        android:progress="50"
+                        android:indeterminate="false"
+                        android:layout_weight="1"/>
+
+                <TextView
+                        android:text="1KB/4MB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/byteText"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp"
+                        android:paddingRight="10dp"
+                        android:layout_weight="1"/>
+
+                <TextView
+                        android:text="1KB/4MB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/persentageText"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp"
+                        android:paddingRight="10dp"
+                        android:layout_weight="1"/>
+
+
+            </LinearLayout>
+
+
+            <Button
+                    android:text="インストール"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/installBtn"
+                    android:background="@drawable/button_round_green_one"
+                    android:textStyle="bold"
+                    />
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/card1">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true">
+
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/infocard1"
+                            android:clickable="true">
+
+                        <TextView
+                                android:text="更新"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView6"
+                                android:textSize="30sp"
+                                android:textColor="@color/colorText"
+                                android:paddingLeft="10dp"
+                                android:layout_weight="1"/>
+
+                        <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageView6"
+                                app:srcCompat="@drawable/icons8_expand_arrow_2"
+                                />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:id="@+id/details"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:visibility="gone">
+
+                        <TextView
+                                android:text="V1.0.0"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/Versioninfo"
+                                android:textColor="@color/colorText"
+                                android:textSize="24sp"
+                                android:paddingLeft="15dp"
+                                tools:visibility="visible"/>
+
+                        <TextView
+                                android:text=""
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/update_text"
+                                android:textColor="@color/colorText"
+                                android:paddingLeft="17dp"
+                                tools:visibility="visible"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="216dp"
+                    android:scrollbars="horizontal"
+                    >
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/ScreenShots"/>
+            </HorizontalScrollView>
+
+            <TextView
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:id="@+id/app_info"
+                    android:textColor="@color/colorText"/>
+
+            <com.jama.carouselview.CarouselView
+                    android:id="@+id/carouselView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spacing="20"/>
+
+            <TextView
+                    android:text="アプリのWEBサイト"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"/>
+
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/weblink"
+                    android:autoLink="web"
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp"/>
+        </LinearLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</FrameLayout>
