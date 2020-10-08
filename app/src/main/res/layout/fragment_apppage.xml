@@ -158,18 +158,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <HorizontalScrollView
+            <com.jama.carouselview.CarouselView
+                    android:id="@+id/carouselView"
                     android:layout_width="match_parent"
-                    android:layout_height="216dp"
-                    android:scrollbars="horizontal"
-                    >
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:id="@+id/ScreenShots"/>
-            </HorizontalScrollView>
+                    android:layout_height="wrap_content"
+                    app:spacing="20"/>
 
             <TextView
                     android:text=""
@@ -179,11 +172,7 @@
                     android:id="@+id/app_info"
                     android:textColor="@color/colorText"/>
 
-            <com.jama.carouselview.CarouselView
-                    android:id="@+id/carouselView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:spacing="20"/>
+
 
             <TextView
                     android:text="アプリのWEBサイト"

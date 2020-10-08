@@ -193,24 +193,7 @@ swipeUpdate.setOnRefreshListener {
             // After you finish setting up, show the CarouselView
             show()
         }
-        val ScreenShotLayout =view.findViewById<LinearLayout>(R.id.ScreenShots)
-        Log.i("url_for", urlArrayList.toString())
-        urlArrayList.forEach {
-            Log.i("url_for", it)
-            if (it!="url") {
 
-                ImageView(context!!).apply {
-                    GetHTTP.GetImage(context!!, it, this)
-                    ScreenShotLayout.addView(this)
-                    val param =this.layoutParams as LinearLayout.LayoutParams
-                    param.apply {
-                        width=context.resources.getDimension(R.dimen.ScreemShotSize).toInt()
-                    }
-                    this.layoutParams=param
-                }
-            }
-
-        }
         when(appId){// アプリごとの初期化処理
             "store" -> {
                 val (isNewversion, newVersion, _) = GetHTTP.CheckStoreUpdate()
