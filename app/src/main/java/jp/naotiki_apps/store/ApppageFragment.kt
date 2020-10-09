@@ -236,7 +236,15 @@ swipeUpdate.setOnRefreshListener {
             }
         }
 view.findViewById<TextView>(R.id.weblink).text=json.getString("infourl")
+        (activity as MainActivity).toolBarMode=ToolBarMode.Share;
+        (activity as MainActivity).shareText="${array[1].toString()}\n${json.getString("infourl")}"
+
+        (activity as MainActivity).invalidateOptionsMenu();
     }
+
+
+
+
     /**
      * @param view 初期化するCardView
      * **/

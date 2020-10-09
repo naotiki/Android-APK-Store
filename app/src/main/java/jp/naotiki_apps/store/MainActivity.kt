@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -22,6 +23,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -31,12 +33,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.header.*
 import java.io.File
 
+ enum class ToolBarMode{
+    Normal,
+    Share
+}
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var viewsArray: ArrayList<Any> = arrayListOf()
     private val jobId = 1;
 
     private var installContext:Context?=null
+
+     var toolBarMode:ToolBarMode=ToolBarMode.Normal;
+var shareText:String="";
 
     @RequiresApi(Build.VERSION_CODES.N)
 
@@ -53,8 +62,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             this.notificationConfig()
         }
 
-        val (isNewVersion,_,_)=GetHTTP().CheckStoreUpdate()
-        val (isNewVersion2,_,_)=GetHTTP().CheckTPSUpdate(this)
+        val (isNewVersion, _, _) = GetHTTP().CheckStoreUpdate()
+        val (isNewVersion2, _, _) = GetHTTP().CheckTPSUpdate(this)
         var c = 0
         if (isNewVersion!!) {//アップデートあり
             c += 1
@@ -64,7 +73,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             c+=1
         }
         if (c>0){
-            Toast.makeText(this,"$c 件のアップデート",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "$c 件のアップデート", Toast.LENGTH_LONG).show()
         }
 
         val ft = supportFragmentManager.beginTransaction()
@@ -85,7 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun StoreUpdateDialog(_context: Context,views:ArrayList<Any>) {//TODO 外部からの呼び出しでクラッシュ 要確認！！
+    fun StoreUpdateDialog(_context: Context, views: ArrayList<Any>) {//TODO 外部からの呼び出しでクラッシュ 要確認！！
         installContext=_context
         viewsArray=views
         val (isNewversion, newVersion, _) = GetHTTP().CheckStoreUpdate()
@@ -115,8 +124,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .setPositiveButton("はい") { dialog, which -> // OK
                     ApppageFragment().startActivityForResult(
                         Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-                            .setData(Uri.parse(String.format("package:%s", installContext!!.packageName)))
-                        , installID
+                            .setData(Uri.parse(String.format("package:%s", installContext!!.packageName))), installID
                     )
 
                 }
@@ -156,9 +164,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(installContext!!, "Storeをダウンロードしています。", Toast.LENGTH_LONG).show()
                 val (_, _, json) = GetHTTP().CheckStoreUpdate()
                 val pass = json.getJSONObject("store").getString("pass")
-                filename = "Store"+".apk"
-                downLoad=  GetHTTP().DownloadAPK(pass, filename,installContext!!)//getApkAwait(URL(pass),filename)
-// TODO 次回!　114514話 プログレスバーでダウンロード進捗情報を視覚化する！　お楽しみに！
+                filename = "Store" + ".apk"
+                downLoad = GetHTTP().DownloadAPK(pass, filename, installContext!!)//getApkAwait(URL(pass),filename)
 
 
             }
@@ -169,7 +176,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val progressBar=viewsArray[0] as ProgressBar
         val persentageTextView= viewsArray[1] as TextView
         val downloadBytes=viewsArray[2] as TextView
-        downLoad!!.progress{readBytes, totalBytes ->
+        downLoad!!.progress{ readBytes, totalBytes ->
             if (System.currentTimeMillis() - lastUpdate > 500) {
                 lastUpdate = System.currentTimeMillis()
                 progressBar.progress=(readBytes.toFloat() / totalBytes.toFloat()*100).toInt()
@@ -180,11 +187,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
             downLoad.response { request, response, result ->
-                val apk= File(installContext!!.filesDir,filename)
-                Log.i("my_log","apk:${apk.path}")
+                val apk= File(installContext!!.filesDir, filename)
+                Log.i("my_log", "apk:${apk.path}")
                 val apkUri =
-                    FileProvider.getUriForFile(installContext!!,
-                        BuildConfig.APPLICATION_ID + ".fileprovider", apk)  // 1
+                    FileProvider.getUriForFile(
+                        installContext!!,
+                        BuildConfig.APPLICATION_ID + ".fileprovider", apk
+                    )  // 1
                 progressBar.progress=100
                 val intent = Intent(Intent.ACTION_VIEW)   // 2
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -251,7 +260,52 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             scheduler.cancel(jobId);
         }
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.shereButton ->{
+                if (shareText!=""){
+                    openChooserToShareThisApp()
+                }
+                return true
+            }
+        }
+        return false
+    }
 
+/// このアプリをSNSシェアできるIntentを起動する
+     fun openChooserToShareThisApp() {
+    val builder = ShareCompat.IntentBuilder.from(this);
+    val subject = "おすすめのNaotiki Apps アプリ";
+    val bodyText = shareText;
+        builder.setSubject(subject) /// 件名
+            .setText(bodyText)  /// 本文
+            .setType("text/plain");
+    val intent = builder.createChooserIntent();
+
+        /// 結果を受け取らずに起動
+        builder.startChooser();
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+
+        when (toolBarMode) {
+            ToolBarMode.Normal -> {
+                menu?.findItem(R.menu.header_menu)?.isVisible = false
+
+            }
+            ToolBarMode.Share -> {
+                if (menu?.findItem(R.menu.header_menu)==null){
+                    menuInflater.inflate(R.menu.header_menu, menu)
+                }
+
+                menu?.findItem(R.menu.header_menu)?.isVisible = true
+
+            }
+            else -> {
+            }
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
     private fun setToolbar() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowHomeEnabled(false)
@@ -275,18 +329,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 fragment = user_parameters()
             }
             R.id.nav_sub_item_1 -> {
-                if (supportFragmentManager.findFragmentByTag("Settings")==null){
-                    fragment = ApppageFragment.newInstance("store",true)
-                    tag="Settings"
-                }else if (!supportFragmentManager.findFragmentByTag("Settings")!!.isVisible){
-                    fragment = ApppageFragment.newInstance("store",true)
-                    tag="Settings"
-                    }
+                if (supportFragmentManager.findFragmentByTag("Settings") == null) {
+                    fragment = ApppageFragment.newInstance("store", true)
+                    tag = "Settings"
+                } else if (!supportFragmentManager.findFragmentByTag("Settings")!!.isVisible) {
+                    fragment = ApppageFragment.newInstance("store", true)
+                    tag = "Settings"
+                }
 
 
                 //StoreUpdateDialog(this)
             }
-            R.id.nav_sub_item_2->{
+            R.id.nav_sub_item_2 -> {
 
             }
         }
@@ -294,7 +348,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (fragment != null) {
 
             val ft = supportFragmentManager.beginTransaction()
-            ft.replace(R.id.frame_contents, fragment,tag)
+            ft.replace(R.id.frame_contents, fragment, tag)
             ft.addToBackStack(null)
 
             ft.commit()
@@ -333,3 +387,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 }
+
+

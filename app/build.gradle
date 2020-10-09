@@ -3,6 +3,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'com.google.gms.google-services'
+
 kotlin {
     experimental {
         coroutines 'enable'
@@ -49,4 +52,7 @@ dependencies {
     implementation 'com.github.kittinunf.fuel:fuel-coroutines:2.2.3'
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.7"
     implementation "com.github.jama5262:CarouselView:1.1.0"
+
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }

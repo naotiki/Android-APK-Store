@@ -36,6 +36,8 @@ class app_fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).toolBarMode=ToolBarMode.Normal;
+        (activity as MainActivity).invalidateOptionsMenu();
 val app1page= view.findViewById<Button>(R.id.app1)
         app1page.setOnClickListener {
             val ft = parentFragmentManager.beginTransaction()

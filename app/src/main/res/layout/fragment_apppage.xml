@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="157dp"
                     android:id="@+id/imageView2"
-                    app:srcCompat="@drawable/n_u_store"/>
+                    app:srcCompat="@drawable/naotiki_apps_logo_horizontal_compact"/>
 
             <TextView
                     android:text="AppTitle"
@@ -173,13 +173,13 @@
                     android:textColor="@color/colorText"/>
 
 
-
             <TextView
                     android:text="アプリのWEBサイト"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp"/>
+                    android:textSize="24sp"
+                    android:layout_marginTop="20dp"/>
 
             <TextView
                     android:text="TextView"
@@ -188,7 +188,11 @@
                     android:id="@+id/weblink"
                     android:autoLink="web"
                     android:textColor="@color/colorText"
-                    android:textSize="24sp"/>
+                    android:textSize="18sp"
+                    android:textColorLink="@color/colorAccent"
+                    android:textAllCaps="false"
+                    android:textAlignment="textStart"
+                    />
         </LinearLayout>
     </ScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
