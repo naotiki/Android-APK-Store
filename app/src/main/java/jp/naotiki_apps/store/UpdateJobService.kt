@@ -24,8 +24,8 @@ class UpdateJobService : JobService() {
 
         Thread(
             Runnable {
-                SendNoti("store"){GetHTTP().CheckStoreUpdate()}
-                SendNoti("tps") {GetHTTP().CheckTPSUpdate(this)}
+                //SendNoti("store"){GetHTTP().CheckStoreUpdate()}
+                //SendNoti("tps") {GetHTTP().CheckTPSUpdate(this)}
                 Log.i(javaClass.name, "${LocalDate.now()}:スケジュールしたジョブで呼び出された処理")
                 jobFinished(params, false)
             }
@@ -35,7 +35,7 @@ class UpdateJobService : JobService() {
 
         return true
 
-}
+}/*
 fun SendNoti(appName:String,UpdateUnit:()->Triple<Boolean?,String, JSONObject>){
     val resultJson = GetHTTP().getJsonAwait(RES_URL)
     // レスポンスボディを表示
@@ -66,6 +66,6 @@ fun SendNoti(appName:String,UpdateUnit:()->Triple<Boolean?,String, JSONObject>){
 
         manager.notify(STORE, notification)
     }
-}
+}*/
 
     }
